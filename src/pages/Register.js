@@ -9,6 +9,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
+import { useAuth } from "../contexts/AuthProvider";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,15 +31,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Register = () => {
+const Register = ({ history }) => {
   const classes = useStyles();
+  const { register } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(username, password, confirmPassword);
+    register({ username, password, confirmPassword });
+    history.push("/");
   };
 
   return (
