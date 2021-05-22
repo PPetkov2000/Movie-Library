@@ -11,6 +11,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
+import { useAuth } from "../contexts/AuthProvider";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,14 +33,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
+const Login = ({ history }) => {
   const classes = useStyles();
+  const { login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(username, password);
+    login({ username, password });
+    history.push("/");
   };
 
   return (
