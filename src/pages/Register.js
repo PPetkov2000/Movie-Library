@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import { useAuth } from "../contexts/AuthProvider";
+import Message from "../components/Message";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,15 +34,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Register = ({ history }) => {
   const classes = useStyles();
-  const { register } = useAuth();
+  const { register, error } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
-    register({ username, password, confirmPassword });
-    history.push("/");
+    register({ username, password, confirmPassword }, history);
   };
 
   return (
@@ -54,6 +54,7 @@ const Register = ({ history }) => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
+        {error && <Message variant="error">{error}</Message>}
         <form className={classes.form} noValidate onSubmit={submitHandler}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
