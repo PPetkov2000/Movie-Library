@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import InputBase from "@material-ui/core/InputBase";
@@ -34,11 +36,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchForm = ({ keyword, setKeyword, handleSubmit }) => {
+const SearchForm = () => {
+  const [keyword, setKeyword] = useState("");
+  const history = useHistory();
   const classes = useStyles();
 
+  const searchHandler = (e) => {
+    e.preventDefault();
+    history.push(`/search/${keyword}`);
+    setKeyword("");
+  };
+
   return (
-    <form className={classes.search} onSubmit={handleSubmit}>
+    <form className={classes.search} onSubmit={searchHandler}>
       <InputBase
         placeholder="Search by movie title…"
         classes={{
