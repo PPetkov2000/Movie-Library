@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -24,15 +24,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Search = () => {
+const Search = ({ match }) => {
+  const keyword = match.params.keyword;
   const [loading, setLoading] = useState(false);
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [error, setError] = useState(null);
-  const [keyword, setKeyword] = useState("");
   const classes = useStyles();
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    retrieveMovies();
+  }, [keyword]);
+
+  const retrieveMovies = async () => {
     if (!keyword) return;
     setLoading(true);
     try {
@@ -52,11 +55,7 @@ const Search = () => {
         Search
       </Typography>
       <div className={classes.searchFormWrapper}>
-        <SearchForm
-          keyword={keyword}
-          setKeyword={setKeyword}
-          handleSubmit={submitHandler}
-        />
+        <SearchForm />
       </div>
       {loading ? (
         <Loader />
