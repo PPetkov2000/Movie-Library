@@ -1,7 +1,7 @@
 import Hero from "../components/Hero";
 import FavouriteMovies from "../components/FavouriteMovies";
 
-const Home = ({ match }) => {
+const Home = () => {
   return (
     <>
       <Hero />
