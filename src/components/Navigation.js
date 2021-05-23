@@ -4,6 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { useAuth } from "../contexts/AuthProvider";
 import SearchForm from "./SearchForm";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Navigation = () => {
   const classes = useStyles();
+  const { authUser, logout } = useAuth();
 
   return (
     <nav>
@@ -42,12 +44,21 @@ const Navigation = () => {
           </div>
           <SearchForm />
           <div>
-            <Button component={Link} to="login">
-              Login
-            </Button>
-            <Button component={Link} to="register">
-              Sign Up
-            </Button>
+            {authUser ? (
+              <>
+                <Button>{authUser.username}</Button>
+                <Button onClick={logout}>Logout</Button>
+              </>
+            ) : (
+              <>
+                <Button component={Link} to="/login">
+                  Login
+                </Button>
+                <Button component={Link} to="/register">
+                  Sign Up
+                </Button>
+              </>
+            )}
           </div>
         </Toolbar>
       </AppBar>
