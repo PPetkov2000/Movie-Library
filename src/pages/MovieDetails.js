@@ -8,7 +8,7 @@ const MovieDetails = ({ location }) => {
   return (
     <Container>
       <Movie movie={movie} />
-      <Review />
+      <Review movie={movie} />
     </Container>
   );
 };
