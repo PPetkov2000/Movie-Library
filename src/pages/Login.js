@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import { useAuth } from "../contexts/AuthProvider";
+import Message from "../components/Message";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,14 +36,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = ({ history }) => {
   const classes = useStyles();
-  const { login } = useAuth();
+  const { login, error } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
-    login({ username, password });
-    history.push("/");
+    login({ username, password }, history);
   };
 
   return (
@@ -55,6 +55,7 @@ const Login = ({ history }) => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+        {error && <Message variant="error">{error}</Message>}
         <form className={classes.form} noValidate onSubmit={submitHandler}>
           <TextField
             variant="outlined"
