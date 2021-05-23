@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
 import { getUser } from "../services/users";
 import Loader from "../components/Loader";
+import api from "../utils/api-instance";
 
 const AuthContext = React.createContext(null);
 
@@ -24,41 +24,73 @@ const AuthProvider = ({ children }) => {
     const sendRequest = async (userId) => {
       try {
         const currentUser = await getUser(userId);
-        setLoading(false);
-        setAuthUser(currentUser);
-        setError(null);
-        setLoggedIn(true);
+        successAction(currentUser);
       } catch (error) {
-        setLoading(false);
-        setAuthUser(null);
-        setError(error.message);
-        setLoggedIn(false);
+        failureAction(error);
       }
     };
     sendRequest(userFromLocalStorage?._id);
   }, [userFromLocalStorage, authUser]);
 
-  const register = async (user) => {
-    const { data } = await axios.post("/register", user);
-    setLoading(false);
-    setAuthUser(data);
-    setLoggedIn(true);
-    localStorage.setItem("authUser", JSON.stringify(data));
+  const register = async (user, history) => {
+    try {
+      const { data } = await api.post("/users", user);
+      successAction(data);
+      localStorage.setItem("authUser", JSON.stringify(data));
+      history.push("/");
+    } catch (error) {
+      failureAction(error);
+      localStorage.removeItem("authUser");
+    }
   };
 
-  const login = async (user) => {
-    const { data } = await axios.post("/login", user);
-    setLoading(false);
-    setAuthUser(data);
-    setLoggedIn(true);
-    localStorage.setItem("authUser", JSON.stringify(data));
+  const login = async (user, history) => {
+    try {
+      const { data } = await api.post("/users/login", user);
+      successAction(data);
+      localStorage.setItem("authUser", JSON.stringify(data));
+      history.push("/");
+    } catch (error) {
+      failureAction(error);
+      localStorage.removeItem("authUser");
+    }
   };
 
   const logout = () => {
     setLoading(false);
     setAuthUser(null);
+    setError(null);
     setLoggedIn(false);
     localStorage.removeItem("authUser");
+    window.location = "/login";
+  };
+
+  const updateAuthUser = async (user) => {
+    if (!authUser) return;
+    const updatedUser = {
+      _id: user._id,
+      username: user.username,
+      favoriteMovies: user.favoriteMovies,
+      ratings: user.ratings,
+      notes: user.notes,
+      token: authUser.token,
+    };
+    setAuthUser(updatedUser);
+    localStorage.setItem("authUser", JSON.stringify(updatedUser));
+  };
+
+  const successAction = (data) => {
+    setLoading(false);
+    setAuthUser(data);
+    setError(null);
+    setLoggedIn(true);
+  };
+
+  const failureAction = (error) => {
+    setLoading(false);
+    setAuthUser(null);
+    setError(error.message);
+    setLoggedIn(false);
   };
 
   return loading ? (
@@ -73,6 +105,7 @@ const AuthProvider = ({ children }) => {
         register,
         login,
         logout,
+        updateAuthUser,
       }}
     >
       {children}
