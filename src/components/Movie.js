@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthProvider";
+import { addToFavorites, removeFromFavorites } from "../services/favorites";
 
 const useStyles = makeStyles(() => ({
   movieWrapper: {
@@ -32,14 +34,7 @@ const useStyles = makeStyles(() => ({
 
 const Movie = ({ movie }) => {
   const classes = useStyles();
-
-  const addToFavorites = async () => {
-    console.log("Add movie to favorites");
-  };
-
-  const removeFromFavorites = async () => {
-    console.log("Remove movie from favorites");
-  };
+  const { authUser, updateAuthUser } = useAuth();
 
   function removeHtmlTags(str) {
     const div = document.createElement("div");
@@ -82,16 +77,31 @@ const Movie = ({ movie }) => {
           </a>
         </div>
         <div>
-          <Button
-            variant="outlined"
-            className={classes.movieAddButton}
-            onClick={addToFavorites}
-          >
-            Add To Favorites
-          </Button>
-          {/* <Button variant="outlined" className={classes.movieRemoveButton}  onClick={removeFromFavorites}>
-            Remove From Favorites
-          </Button> */}
+          {authUser &&
+          authUser.favoriteMovies &&
+          authUser.favoriteMovies.find((x) => x.id === movie.id) ? (
+            <Button
+              variant="outlined"
+              className={classes.movieRemoveButton}
+              onClick={async () => {
+                const { data } = await removeFromFavorites(movie.id);
+                updateAuthUser(data);
+              }}
+            >
+              Remove From Favorites
+            </Button>
+          ) : (
+            <Button
+              variant="outlined"
+              className={classes.movieAddButton}
+              onClick={async () => {
+                const { data } = await addToFavorites(movie);
+                updateAuthUser(data);
+              }}
+            >
+              Add To Favorites
+            </Button>
+          )}
         </div>
       </div>
     </div>
