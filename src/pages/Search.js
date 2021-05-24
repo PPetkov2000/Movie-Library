@@ -45,7 +45,6 @@ const Search = ({ match }) => {
     } catch (error) {
       setLoading(false);
       setError(error.message);
-      console.log(error);
     }
   };
 
