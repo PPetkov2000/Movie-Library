@@ -71,8 +71,6 @@ const AuthProvider = ({ children }) => {
       _id: user._id,
       username: user.username,
       favoriteMovies: user.favoriteMovies,
-      ratings: user.ratings,
-      notes: user.notes,
       token: authUser.token,
     };
     setAuthUser(updatedUser);
