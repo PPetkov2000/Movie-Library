@@ -38,7 +38,7 @@ const Hero = () => {
         className={classes.heroImage}
       />
       <Container>
-        <Typography variant="h2">Your movie library</Typography>
+        <Typography variant="h2">Your Movie Library</Typography>
         <Typography variant="subtitle1" className={classes.heroSubtitle}>
           Our mission is to unite movie lovers and have a good time while
           watching cult movies. In cinematography we trust.
