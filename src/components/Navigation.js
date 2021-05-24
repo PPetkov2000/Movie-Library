@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
       width: "fit-content",
     },
   },
+  navbarButton: {
+    fontWeight: "bold",
+  },
 }));
 
 const Navigation = () => {
@@ -46,15 +49,27 @@ const Navigation = () => {
           <div>
             {authUser ? (
               <>
-                <Button>{authUser.username}</Button>
-                <Button onClick={logout}>Logout</Button>
+                <Button className={classes.navbarButton}>
+                  {authUser.username}
+                </Button>
+                <Button onClick={logout} className={classes.navbarButton}>
+                  Logout
+                </Button>
               </>
             ) : (
               <>
-                <Button component={Link} to="/login">
+                <Button
+                  component={Link}
+                  className={classes.navbarButton}
+                  to="/login"
+                >
                   Login
                 </Button>
-                <Button component={Link} to="/register">
+                <Button
+                  component={Link}
+                  className={classes.navbarButton}
+                  to="/register"
+                >
                   Sign Up
                 </Button>
               </>
