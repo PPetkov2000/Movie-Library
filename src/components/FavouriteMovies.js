@@ -1,44 +1,64 @@
+import { Link } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
-import useFetch from "../hooks/useFetch";
 import Loader from "./Loader";
 import Message from "./Message";
+import { defaultImage } from "../utils/defaultImage";
+import { useAuth } from "../contexts/AuthProvider";
 
 const useStyles = makeStyles(() => ({
   moviesWrapper: {
-    // display: "grid",
-    // gridTemplateColumns: repeat("auto-fill", minmax("200px", "1fr")),
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+    columnGap: "1rem",
+    rowGap: "1rem",
+  },
+  moviesTitle: {
+    textAlign: "center",
+    marginTop: "2rem",
+    marginBottom: "1.5rem",
+  },
+  moviesEmpty: {
+    textAlign: "center",
   },
 }));
 
 const FavouriteMovies = () => {
   const classes = useStyles();
-  const {
-    loading,
-    data: movies,
-    error,
-  } = useFetch("https://api.tvmaze.com/shows");
-  console.log(movies);
+  const { loading, authUser, error } = useAuth();
 
   return (
     <Container>
-      <h2>FavouriteMovies</h2>
+      <Typography variant="h4" className={classes.moviesTitle}>
+        Your Favorites
+      </Typography>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant="error">{error}</Message>
-      ) : movies.length > 0 ? (
+      ) : authUser && authUser.favoriteMovies.length > 0 ? (
         <div className={classes.moviesWrapper}>
-          {movies.map((movie) => (
-            <img
+          {authUser.favoriteMovies.map((movie) => (
+            <Link
+              to={{ pathname: `/movie/${movie.name}`, state: movie }}
               key={movie.id}
-              src={movie.image && movie.image.medium}
-              alt={movie.name}
-            />
+            >
+              <img
+                src={movie.image ? movie.image.medium : defaultImage}
+                alt={movie.name}
+              />
+            </Link>
           ))}
         </div>
       ) : (
-        <h2>You dont have favorite movies yet.</h2>
+        <Typography
+          variant="h5"
+          color="primary"
+          className={classes.moviesEmpty}
+        >
+          You dont have favorite movies yet.
+        </Typography>
       )}
     </Container>
   );
