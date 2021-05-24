@@ -19,16 +19,17 @@ module.exports = function (instance) {
     },
     (error) => {
       console.log(error);
-      if (error.response.status === 401) {
-        return Promise.reject("Not authorized");
+      if (error.message === "Network Error") {
+        console.log(error);
+        return Promise.reject({ message: "Server Error" });
       }
       if (error.response && error.response.data) {
         return Promise.reject(error.response.data);
       }
-      if (error.message === "Network Error") {
-        console.log(error, error.status, error.response.status);
-        return Promise.reject("Server Error");
+      if (error.response.status === 401) {
+        return Promise.reject({ message: "Not authorized" });
       }
+      console.log("1");
       return Promise.reject(error.message);
     }
   );
