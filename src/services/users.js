@@ -1,12 +1,4 @@
-import axios from "axios";
-import addInterceptors from "../utils/interceptors";
-
-const api = axios.create({
-  baseUrl: "http://localhost:4000",
-  headers: { "Content-Type": "application/json" },
-});
-
-addInterceptors(api);
+import api from "../utils/api-instance";
 
 const getUsers = async () => {
   const users = await api.get("/users");
