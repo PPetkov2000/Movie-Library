@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useAuth } from "../contexts/AuthProvider";
 import { addToFavorites, removeFromFavorites } from "../services/favorites";
+import { defaultImage } from "../utils/defaultImage";
 
 const useStyles = makeStyles(() => ({
   movieWrapper: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles(() => ({
     marginTop: "2rem",
   },
   movieImage: {
-    // width: clamp("200px, 100%, 280px"),
+    maxWidth: "210px",
   },
   movieInfo: {
     display: "flex",
@@ -46,7 +47,7 @@ const Movie = ({ movie }) => {
     <div className={classes.movieWrapper}>
       <Link to={{ pathname: `/movie/${movie.name}`, state: movie }}>
         <img
-          src={movie.image && movie.image.medium}
+          src={movie.image ? movie.image.medium : defaultImage}
           alt={movie.name}
           className={classes.movieImage}
         />
@@ -77,30 +78,33 @@ const Movie = ({ movie }) => {
           </a>
         </div>
         <div>
-          {authUser &&
-          authUser.favoriteMovies &&
-          authUser.favoriteMovies.find((x) => x.id === movie.id) ? (
-            <Button
-              variant="outlined"
-              className={classes.movieRemoveButton}
-              onClick={async () => {
-                const { data } = await removeFromFavorites(movie.id);
-                updateAuthUser(data);
-              }}
-            >
-              Remove From Favorites
-            </Button>
-          ) : (
-            <Button
-              variant="outlined"
-              className={classes.movieAddButton}
-              onClick={async () => {
-                const { data } = await addToFavorites(movie);
-                updateAuthUser(data);
-              }}
-            >
-              Add To Favorites
-            </Button>
+          {authUser && (
+            <>
+              {authUser.favoriteMovies &&
+              authUser.favoriteMovies.find((x) => x.id === movie.id) ? (
+                <Button
+                  variant="outlined"
+                  className={classes.movieRemoveButton}
+                  onClick={async () => {
+                    const { data } = await removeFromFavorites(movie.id);
+                    updateAuthUser(data);
+                  }}
+                >
+                  Remove From Favorites
+                </Button>
+              ) : (
+                <Button
+                  variant="outlined"
+                  className={classes.movieAddButton}
+                  onClick={async () => {
+                    const { data } = await addToFavorites(movie);
+                    updateAuthUser(data);
+                  }}
+                >
+                  Add To Favorites
+                </Button>
+              )}
+            </>
           )}
         </div>
       </div>
