@@ -5,18 +5,26 @@ import Search from "../pages/Search";
 import MovieDetails from "../pages/MovieDetails";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import Footer from "../components/Footer";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Navigation />
-      <Switch>
-        <Route path={["/", "/home"]} exact component={Home} />
-        <Route path="/search" component={Search} />
-        <Route path="/movie/:movieTitle" component={MovieDetails} />
-        <Route path="/register" component={Register} />
-        <Route path="/login" component={Login} />
-      </Switch>
+      <main className="main-container">
+        <Switch>
+          <Route path={["/", "/home"]} exact component={Home} />
+          <Route
+            path={["/search", "/search/:keyword"]}
+            exact
+            component={Search}
+          />
+          <Route path="/movie/:movieTitle" component={MovieDetails} />
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+        </Switch>
+      </main>
+      <Footer />
     </BrowserRouter>
   );
 };
