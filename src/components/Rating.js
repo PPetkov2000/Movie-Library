@@ -18,10 +18,14 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     fontSize: "2.5rem",
+    cursor: "pointer",
+    "&:hover": {
+      color: "#e2e218",
+    },
   },
 }));
 
-const Rating = ({ value, text }) => {
+const Rating = ({ value, text, handleClick }) => {
   const classes = useStyles();
 
   return (
@@ -32,44 +36,29 @@ const Rating = ({ value, text }) => {
         </Typography>
       )}
 
-      {value >= 1 ? (
-        <StarIcon className={[classes.icon, classes.ratingIcon]} />
-      ) : value >= 0.5 ? (
-        <StarHalfIcon className={[classes.icon, classes.ratingIcon]} />
-      ) : (
-        <StarBorderIcon className={classes.icon} />
-      )}
-
-      {value >= 2 ? (
-        <StarIcon className={[classes.icon, classes.ratingIcon]} />
-      ) : value >= 1.5 ? (
-        <StarHalfIcon className={[classes.icon, classes.ratingIcon]} />
-      ) : (
-        <StarBorderIcon className={classes.icon} />
-      )}
-
-      {value >= 3 ? (
-        <StarIcon className={[classes.icon, classes.ratingIcon]} />
-      ) : value >= 2.5 ? (
-        <StarHalfIcon className={[classes.icon, classes.ratingIcon]} />
-      ) : (
-        <StarBorderIcon className={classes.icon} />
-      )}
-
-      {value >= 4 ? (
-        <StarIcon className={[classes.icon, classes.ratingIcon]} />
-      ) : value >= 3.5 ? (
-        <StarHalfIcon className={[classes.icon, classes.ratingIcon]} />
-      ) : (
-        <StarBorderIcon className={classes.icon} />
-      )}
-
-      {value >= 5 ? (
-        <StarIcon className={[classes.icon, classes.ratingIcon]} />
-      ) : value >= 4.5 ? (
-        <StarHalfIcon className={[classes.icon, classes.ratingIcon]} />
-      ) : (
-        <StarBorderIcon className={classes.icon} />
+      {[...Array(5).keys()].map((x) =>
+        value >= x + 1 ? (
+          <StarIcon
+            key={x + 1}
+            id={x + 1}
+            className={`${classes.icon} ${classes.ratingIcon}`}
+            onClick={handleClick}
+          />
+        ) : value >= x + 0.5 ? (
+          <StarHalfIcon
+            key={x + 1}
+            id={x + 1}
+            className={`${classes.icon} ${classes.ratingIcon}`}
+            onClick={handleClick}
+          />
+        ) : (
+          <StarBorderIcon
+            key={x + 1}
+            id={x + 1}
+            className={classes.icon}
+            onClick={handleClick}
+          />
+        )
       )}
     </div>
   );
