@@ -42,6 +42,7 @@ const createUser = async (req, res, next) => {
     res.status(201).json({
       _id: user._id,
       username: user.username,
+      favoriteMovies: user.favoriteMovies,
       token: generateToken(user._id),
     });
   } catch (error) {
@@ -93,6 +94,7 @@ const authUser = async (req, res, next) => {
       res.json({
         _id: user._id,
         username: user.username,
+        favoriteMovies: user.favoriteMovies,
         token: generateToken(user._id),
       });
     } else {
