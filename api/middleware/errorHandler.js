@@ -5,9 +5,12 @@ const notFound = (req, res, next) => {
 };
 
 const errorHandler = (err, req, res, next) => {
+  if (err.message.includes("Cast to ObjectId failed")) {
+    res.status(400).json({ message: err.reason.message });
+    return;
+  }
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-  res.status(statusCode);
-  res.json({
+  res.status(statusCode).json({
     message: err.message,
     stack: process.env.NODE_ENV === "production" ? null : err.stack,
   });
