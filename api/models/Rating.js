@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const ratingSchema = new mongoose.Schema(
   {
-    rating: { type: Array, required: [true, "Rating is required"] },
-    movie: { type: Object, required: [true, "Movie object is required"] },
+    rating: { type: Number, required: [true, "Rating is required"] },
+    movieId: { type: Number, required: [true, "Movie id is required"] },
     user: {
       type: "ObjectId",
       ref: "User",
