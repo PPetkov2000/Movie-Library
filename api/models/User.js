@@ -3,11 +3,17 @@ const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
-    username: { type: String, required: [true, "Username is required"] },
-    password: { type: String, required: [true, "Password is required"] },
+    username: {
+      type: String,
+      required: [true, "Username is required"],
+      minlength: [6, "Username should be at least 6 characters long"],
+    },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      minnength: [6, "Password should be at least 6 characters long"],
+    },
     favoriteMovies: { type: Array, default: [] },
-    ratings: [{ type: "ObjectId", ref: "Rating" }],
-    notes: [{ type: "ObjectId", ref: "Note" }],
   },
   { timestamps: true }
 );
