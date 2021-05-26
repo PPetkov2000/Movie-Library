@@ -26,8 +26,9 @@ const Review = ({ movie }) => {
   const classes = useStyles();
 
   useEffect(() => {
+    if (!movie.id) return;
     retrieveRating();
-  }, [rating]);
+  }, [rating, movie]);
 
   const retrieveRating = async () => {
     const { data } = await getRating(movie.id);
