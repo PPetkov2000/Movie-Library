@@ -45,7 +45,7 @@ const Movie = ({ movie }) => {
 
   return (
     <div className={classes.movieWrapper}>
-      <Link to={{ pathname: `/movie/${movie.name}`, state: movie }}>
+      <Link to={`/movie/${movie.id}`}>
         <img
           src={movie.image ? movie.image.medium : defaultImage}
           alt={movie.name}
@@ -59,7 +59,7 @@ const Movie = ({ movie }) => {
             <>({movie.premiered && movie.premiered.split("-")[0]})</>
           )}
         </Typography>
-        {movie.genres.length > 0 && (
+        {movie.genres && movie.genres.length > 0 && (
           <Typography variant="h5">
             {movie.genres.slice(0, 3).join(", ")} | {movie.runtime} minutes
           </Typography>
