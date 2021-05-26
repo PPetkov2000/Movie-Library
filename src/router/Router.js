@@ -19,7 +19,7 @@ const Router = () => {
             exact
             component={Search}
           />
-          <Route path="/movie/:movieTitle" component={MovieDetails} />
+          <Route path="/movie/:id" component={MovieDetails} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
         </Switch>
