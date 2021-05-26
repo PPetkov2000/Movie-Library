@@ -85,7 +85,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const failureAction = (error) => {
-    console.log(error);
     setLoading(false);
     setAuthUser(null);
     if (error.message) {
