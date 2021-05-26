@@ -92,7 +92,7 @@ const Register = ({ history }) => {
                 fullWidth
                 name="confirmPassword"
                 label="Confirm Password"
-                type="confirmPassword"
+                type="password"
                 id="confirmPassword"
                 autoComplete="confirm-password"
                 value={confirmPassword}
