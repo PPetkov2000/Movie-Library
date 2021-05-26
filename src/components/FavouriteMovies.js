@@ -40,10 +40,7 @@ const FavouriteMovies = () => {
       ) : authUser && authUser.favoriteMovies.length > 0 ? (
         <div className={classes.moviesWrapper}>
           {authUser.favoriteMovies.map((movie) => (
-            <Link
-              to={{ pathname: `/movie/${movie.name}`, state: movie }}
-              key={movie.id}
-            >
+            <Link to={`/movie/${movie.id}`} key={movie.id}>
               <img
                 src={movie.image ? movie.image.medium : defaultImage}
                 alt={movie.name}
