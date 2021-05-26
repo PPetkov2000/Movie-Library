@@ -29,7 +29,6 @@ module.exports = function (instance) {
       if (error.response.status === 401) {
         return Promise.reject({ message: "Not authorized" });
       }
-      console.log("1");
       return Promise.reject(error.message);
     }
   );
