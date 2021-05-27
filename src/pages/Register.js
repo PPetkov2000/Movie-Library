@@ -34,10 +34,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Register = ({ history }) => {
   const classes = useStyles();
-  const { register, error } = useAuth();
+  const { register, error, authUser } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  if (authUser) {
+    history.push("/");
+  }
 
   const submitHandler = (e) => {
     e.preventDefault();
