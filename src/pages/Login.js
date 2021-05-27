@@ -36,9 +36,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = ({ history }) => {
   const classes = useStyles();
-  const { login, error } = useAuth();
+  const { login, error, authUser } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  if (authUser) {
+    history.push("/");
+  }
 
   const submitHandler = (e) => {
     e.preventDefault();
