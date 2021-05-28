@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -13,6 +13,7 @@ import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import { useAuth } from "../contexts/AuthProvider";
 import Message from "../components/Message";
+import errorHandler from "../utils/errorHandler";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,17 +37,25 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = ({ history }) => {
   const classes = useStyles();
-  const { login, error, authUser } = useAuth();
+  const { login, authUser } = useAuth();
+  const [error, setError] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  if (authUser) {
-    history.push("/");
-  }
+  useEffect(() => {
+    if (authUser) {
+      history.push("/");
+    }
+  }, [history, authUser]);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    login({ username, password }, history);
+    try {
+      await login({ username, password });
+    } catch (err) {
+      const error = errorHandler(err);
+      setError(error);
+    }
   };
 
   return (
