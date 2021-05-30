@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import api from "../utils/api-instance";
+import axios from "axios";
+import { api } from "../utils/requester"; // used because of the attached interceptors
 
 function useFetch(url) {
   const [loading, setLoading] = useState(true);
