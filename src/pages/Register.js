@@ -64,9 +64,7 @@ const Register = ({ history }) => {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
+        <Typography component="h1" variant="h5">Sign up</Typography>
         {error && <Message variant="error">{error}</Message>}
         <form className={classes.form} noValidate onSubmit={submitHandler}>
           <Grid container spacing={2}>
@@ -113,15 +111,7 @@ const Register = ({ history }) => {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up
-          </Button>
+          <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>Sign Up</Button>
           <Grid container justify="flex-end">
             <Grid item>
               <Link to="/login">Already have an account? Sign in</Link>

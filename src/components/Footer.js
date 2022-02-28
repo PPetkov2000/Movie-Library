@@ -24,13 +24,7 @@ const Footer = () => {
       <AppBar position="static" color="default">
         <Container>
           <Toolbar>
-            <Typography
-              variant="body1"
-              color="inherit"
-              className={classes.text}
-            >
-              © Plamen Petkov 2021
-            </Typography>
+            <Typography variant="body1" color="inherit" className={classes.text}>© Plamen Petkov 2021</Typography>
           </Toolbar>
         </Container>
       </AppBar>

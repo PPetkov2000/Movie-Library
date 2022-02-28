@@ -12,9 +12,7 @@ const getUsers = async (req, res, next) => {
 
 const getUser = async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id)
-      .select("-password")
-      .populate("ratings", "notes");
+    const user = await User.findById(req.params.id).select("-password").populate("ratings", "notes");
     if (user) {
       res.json(user);
     } else {
@@ -52,16 +50,11 @@ const createUser = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id)
-      .select("-password")
-      .populate("ratings", "notes");
+    const user = await User.findById(req.params.id).select("-password").populate("ratings", "notes");
     if (user) {
       user.username = req.body.username || user.username;
       const updatedUser = await user.save();
-      res.json({
-        _id: updatedUser._id,
-        username: updatedUser.username,
-      });
+      res.json({ _id: updatedUser._id, username: updatedUser.username });
     } else {
       res.status(404);
       throw new Error("User not Found");
@@ -106,11 +99,4 @@ const authUser = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  getUsers,
-  getUser,
-  createUser,
-  updateUser,
-  deleteUser,
-  authUser,
-};
+module.exports = { getUsers, getUser, createUser, updateUser, deleteUser, authUser };

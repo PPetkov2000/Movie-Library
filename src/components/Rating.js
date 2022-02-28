@@ -30,35 +30,15 @@ const Rating = ({ value, text, handleClick }) => {
 
   return (
     <div className={classes.ratingWrapper}>
-      {text && (
-        <Typography varinat="h3" className={classes.ratingText}>
-          {text}
-        </Typography>
-      )}
-
+      {text && <Typography varinat="h3" className={classes.ratingText}>{text}</Typography>}
       {[...Array(5).keys()].map((x) =>
-        value >= x + 1 ? (
-          <StarIcon
-            key={x + 1}
-            id={x + 1}
-            className={`${classes.icon} ${classes.ratingIcon}`}
-            onClick={handleClick}
-          />
-        ) : value >= x + 0.5 ? (
-          <StarHalfIcon
-            key={x + 1}
-            id={x + 1}
-            className={`${classes.icon} ${classes.ratingIcon}`}
-            onClick={handleClick}
-          />
-        ) : (
-          <StarBorderIcon
-            key={x + 1}
-            id={x + 1}
-            className={classes.icon}
-            onClick={handleClick}
-          />
-        )
+        value >= x + 1
+          ?
+          <StarIcon key={x + 1} id={x + 1} className={`${classes.icon} ${classes.ratingIcon}`} onClick={handleClick} />
+          :
+          value >= x + 0.5 ? <StarHalfIcon key={x + 1} id={x + 1} className={`${classes.icon} ${classes.ratingIcon}`} onClick={handleClick} />
+            :
+            <StarBorderIcon key={x + 1} id={x + 1} className={classes.icon} onClick={handleClick} />
       )}
     </div>
   );

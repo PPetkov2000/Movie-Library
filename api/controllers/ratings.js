@@ -11,10 +11,7 @@ const getRatings = async (req, res, next) => {
 
 const getRating = async (req, res, next) => {
   try {
-    const rating = await Rating.findOne({
-      movieId: req.params.movieId,
-      user: req.user._id,
-    });
+    const rating = await Rating.findOne({ movieId: req.params.movieId, user: req.user._id });
     res.json(rating);
   } catch (error) {
     next(error);
@@ -28,10 +25,7 @@ const addRating = async (req, res, next) => {
       res.status(400);
       throw new Error("Please provide a valid rating");
     }
-    const createdRating = await Rating.create({
-      ...rating,
-      user: req.user._id,
-    });
+    const createdRating = await Rating.create({ ...rating, user: req.user._id });
     res.status(201).json({ rating: createdRating });
   } catch (error) {
     next(error);
@@ -79,10 +73,4 @@ const removeRating = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  getRatings,
-  getRating,
-  addRating,
-  updateRating,
-  removeRating,
-};
+module.exports = { getRatings, getRating, addRating, updateRating, removeRating };

@@ -50,9 +50,7 @@ const Search = ({ match }) => {
 
   return (
     <Container>
-      <Typography variant="h3" className={classes.title}>
-        Search
-      </Typography>
+      <Typography variant="h3" className={classes.title}>Search</Typography>
       <div className={classes.searchFormWrapper}>
         <SearchForm />
       </div>
@@ -61,9 +59,7 @@ const Search = ({ match }) => {
       ) : error ? (
         <Message variant="error">{error}</Message>
       ) : searchedMovies.length === 0 && keyword ? (
-        <Typography variant="h5" className={classes.noResults}>
-          There is no movie with this title
-        </Typography>
+        <Typography variant="h5" className={classes.noResults}>There is no movie with this title</Typography>
       ) : (
         searchedMovies.map((movie) => <Movie key={movie.id} movie={movie} />)
       )}

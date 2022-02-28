@@ -30,32 +30,21 @@ const FavouriteMovies = () => {
 
   return (
     <Container>
-      <Typography variant="h4" className={classes.moviesTitle}>
-        Your Favorites
-      </Typography>
+      <Typography variant="h4" className={classes.moviesTitle}>Your Favorites</Typography>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant="error">{error}</Message>
-      ) : authUser && authUser.favoriteMovies.length > 0 ? (
+      ) : authUser && authUser.favoriteMovies && authUser.favoriteMovies.length > 0 ? (
         <div className={classes.moviesWrapper}>
           {authUser.favoriteMovies.map((movie) => (
             <Link to={`/movie/${movie.id}`} key={movie.id}>
-              <img
-                src={movie.image ? movie.image.medium : defaultImage}
-                alt={movie.name}
-              />
+              <img src={movie.image ? movie.image.medium : defaultImage} alt={movie.name} />
             </Link>
           ))}
         </div>
       ) : (
-        <Typography
-          variant="h5"
-          color="primary"
-          className={classes.moviesEmpty}
-        >
-          You dont have favorite movies yet.
-        </Typography>
+        <Typography variant="h5" color="primary" className={classes.moviesEmpty}>You dont have favorite movies yet.</Typography>
       )}
     </Container>
   );

@@ -35,43 +35,19 @@ const Navigation = () => {
       <AppBar position="static" color="default">
         <Toolbar className={classes.navbarWrapper}>
           <div>
-            <Typography
-              className={classes.navbarTitle}
-              variant="h6"
-              noWrap
-              component={Link}
-              to="/"
-            >
-              My Movie Collection
-            </Typography>
+            <Typography className={classes.navbarTitle} variant="h6" noWrap component={Link} to="/">My Movie Collection</Typography>
           </div>
           <SearchForm />
           <div>
             {authUser ? (
               <>
-                <Button className={classes.navbarButton}>
-                  {authUser.username}
-                </Button>
-                <Button onClick={logout} className={classes.navbarButton}>
-                  Logout
-                </Button>
+                <Button className={classes.navbarButton}>{authUser.username}</Button>
+                <Button onClick={logout} className={classes.navbarButton}>Logout</Button>
               </>
             ) : (
               <>
-                <Button
-                  component={Link}
-                  className={classes.navbarButton}
-                  to="/login"
-                >
-                  Login
-                </Button>
-                <Button
-                  component={Link}
-                  className={classes.navbarButton}
-                  to="/register"
-                >
-                  Sign Up
-                </Button>
+                <Button component={Link} className={classes.navbarButton} to="/login">Login</Button>
+                <Button component={Link} className={classes.navbarButton} to="/register">Sign Up</Button>
               </>
             )}
           </div>

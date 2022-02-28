@@ -51,17 +51,12 @@ const SearchForm = () => {
     <form className={classes.search} onSubmit={searchHandler}>
       <InputBase
         placeholder="Search by movie title…"
-        classes={{
-          root: classes.inputRoot,
-          input: classes.inputInput,
-        }}
+        classes={{ root: classes.inputRoot, input: classes.inputInput }}
         inputProps={{ "aria-label": "search" }}
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       />
-      <Button type="submit" variant="outlined" className={classes.searchButton}>
-        Search
-      </Button>
+      <Button type="submit" variant="outlined" className={classes.searchButton}>Search</Button>
     </form>
   );
 };

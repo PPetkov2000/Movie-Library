@@ -37,75 +37,45 @@ const Movie = ({ movie }) => {
   const classes = useStyles();
   const { authUser, updateAuthUser } = useAuth();
 
-  function removeHtmlTags(str) {
+  const removeHtmlTags = (str) => {
     const div = document.createElement("div");
     div.innerHTML = str;
     return div.textContent || "";
   }
 
+  const addToFavoritesAndUpdateUser = async () => {
+    const { data } = await addToFavorites(movie);
+    updateAuthUser(data);
+  };
+
+  const removeFromFavoritesAndUpdateUser = async () => {
+    const { data } = await removeFromFavorites(movie.id);
+    updateAuthUser(data);
+  };
+
   return (
     <div className={classes.movieWrapper}>
       <Link to={`/movie/${movie.id}`}>
-        <img
-          src={movie.image ? movie.image.medium : defaultImage}
-          alt={movie.name}
-          className={classes.movieImage}
-        />
+        <img src={movie.image ? movie.image.medium : defaultImage} alt={movie.name} className={classes.movieImage} />
       </Link>
       <div className={classes.movieInfo}>
         <Typography variant="h3">
-          {movie.name}{" "}
-          {movie.premiered && (
-            <>({movie.premiered && movie.premiered.split("-")[0]})</>
-          )}
+          {movie.name} {movie.premiered} {movie.premiered && movie.premiered.split("-")[0]}
         </Typography>
         {movie.genres && movie.genres.length > 0 && (
-          <Typography variant="h5">
-            {movie.genres.slice(0, 3).join(", ")} | {movie.runtime} minutes
-          </Typography>
+          <Typography variant="h5">{movie.genres.slice(0, 3).join(", ")} | {movie.runtime} minutes</Typography>
         )}
-        <Typography variant="subtitle1">
-          {removeHtmlTags(movie.summary)}
-        </Typography>
+        <Typography variant="subtitle1">{removeHtmlTags(movie.summary)}</Typography>
         <div>
-          <a
-            href="https://www.tvmaze.com"
-            target="_blank"
-            rel="noreferrer"
-            style={{ fontSize: "1.1rem" }}
-          >
-            Visit official site
-          </a>
+          <a href="https://www.tvmaze.com" target="_blank" rel="noreferrer" style={{ fontSize: "1.1rem" }}>Visit official site</a>
         </div>
         <div>
-          {authUser && (
-            <>
-              {authUser.favoriteMovies &&
-              authUser.favoriteMovies.find((x) => x.id === movie.id) ? (
-                <Button
-                  variant="outlined"
-                  className={classes.movieRemoveButton}
-                  onClick={async () => {
-                    const { data } = await removeFromFavorites(movie.id);
-                    updateAuthUser(data);
-                  }}
-                >
-                  Remove From Favorites
-                </Button>
-              ) : (
-                <Button
-                  variant="outlined"
-                  className={classes.movieAddButton}
-                  onClick={async () => {
-                    const { data } = await addToFavorites(movie);
-                    updateAuthUser(data);
-                  }}
-                >
-                  Add To Favorites
-                </Button>
-              )}
-            </>
-          )}
+          {authUser && authUser.favoriteMovies && authUser.favoriteMovies.find((x) => x.id === movie.id)
+            ?
+            <Button variant="outlined" className={classes.movieRemoveButton} onClick={removeFromFavoritesAndUpdateUser}>Remove From Favorites</Button>
+            :
+            <Button variant="outlined" className={classes.movieAddButton} onClick={addToFavoritesAndUpdateUser}>Add To Favorites</Button>
+          }
         </div>
       </div>
     </div>

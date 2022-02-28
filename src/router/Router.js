@@ -14,11 +14,7 @@ const Router = () => {
       <main className="main-container">
         <Switch>
           <Route path={["/", "/home"]} exact component={Home} />
-          <Route
-            path={["/search", "/search/:keyword"]}
-            exact
-            component={Search}
-          />
+          <Route path={["/search", "/search/:keyword"]} exact component={Search} />
           <Route path="/movie/:id" component={MovieDetails} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />

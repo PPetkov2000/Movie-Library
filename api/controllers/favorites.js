@@ -19,9 +19,7 @@ const addToFavorites = async (req, res, next) => {
     }
     const user = await User.findById(req.user._id).select("-password");
     if (user) {
-      const movieInFavorites = user.favoriteMovies.find(
-        (x) => x.id === movie.id
-      );
+      const movieInFavorites = user.favoriteMovies.find((x) => x.id === movie.id);
       if (movieInFavorites) {
         res.status(400);
         throw new Error("Movie is already in favourites");
@@ -47,9 +45,7 @@ const removeFromFavorites = async (req, res, next) => {
     }
     const user = await User.findById(req.user._id).select("-password");
     if (user) {
-      const movie = user.favoriteMovies.find(
-        (x) => Number(x.id) === Number(movieId)
-      );
+      const movie = user.favoriteMovies.find((x) => Number(x.id) === Number(movieId));
       if (!movie) {
         res.status(400);
         throw new Error("Movie not Found");

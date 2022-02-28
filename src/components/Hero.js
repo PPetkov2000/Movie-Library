@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "0 0 6px black",
     marginTop: "0.5rem",
     marginBottom: "1rem",
+    padding: "0.8rem"
   },
 }));
 
@@ -32,25 +33,14 @@ const Hero = () => {
 
   return (
     <div className={classes.heroWrapper}>
-      <img
-        src="assets/hero-image1.jpg"
-        alt="hero"
-        className={classes.heroImage}
-      />
+      <img src="assets/hero-image1.jpg" alt="hero" className={classes.heroImage} />
       <Container>
         <Typography variant="h2">Your Movie Library</Typography>
         <Typography variant="subtitle1" className={classes.heroSubtitle}>
           Our mission is to unite movie lovers and have a good time while
           watching cult movies. In cinematography we trust.
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          component={Link}
-          to="/search"
-        >
-          Search
-        </Button>
+        <Button variant="contained" color="primary" component={Link} to="/search">Search</Button>
       </Container>
     </div>
   );

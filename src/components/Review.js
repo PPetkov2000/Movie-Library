@@ -69,14 +69,7 @@ const Review = ({ movie }) => {
           className={classes.reviewTextField}
         />
         <div>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.submitButton}
-          >
-            Submit
-          </Button>
+          <Button type="submit" variant="contained" color="primary" className={classes.submitButton}>Submit</Button>
         </div>
       </form>
     </div>

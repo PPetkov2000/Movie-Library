@@ -65,9 +65,7 @@ const Login = ({ history }) => {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
+        <Typography component="h1" variant="h5">Sign in</Typography>
         {error && <Message variant="error">{error}</Message>}
         <form className={classes.form} noValidate onSubmit={submitHandler}>
           <TextField
@@ -100,20 +98,10 @@ const Login = ({ history }) => {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
+          <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>Sign In</Button>
           <Grid container>
             <Grid item xs>
-              <Link to="#" variant="body2">
-                Forgot password?
-              </Link>
+              <Link to="#" variant="body2">Forgot password?</Link>
             </Grid>
             <Grid item>
               <Link to="/register">Don't have an account? Sign Up</Link>
