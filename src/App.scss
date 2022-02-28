@@ -1,0 +1,8 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  min-height: calc(100vh - 128px - 2rem); // 2rem is footer's margin-top
+}
