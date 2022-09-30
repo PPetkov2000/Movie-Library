@@ -1,11 +1,14 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Navigation from "../components/Navigation";
-import Home from "../pages/Home";
-import Search from "../pages/Search";
-import MovieDetails from "../pages/MovieDetails";
-import Register from "../pages/Register";
-import Login from "../pages/Login";
-import Footer from "../components/Footer";
+import { Suspense, lazy } from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import Loader from '../components/Loader'
+import Navigation from '../components/Navigation'
+
+const Home = lazy(() => import('../pages/Home'))
+const Search = lazy(() => import('../pages/Search'))
+const MovieDetails = lazy(() => import('../pages/MovieDetails'))
+const Register = lazy(() => import('../pages/Register'))
+const Login = lazy(() => import('../pages/Login'))
+const Footer = lazy(() => import('../components/Footer'))
 
 const Router = () => {
   return (
@@ -13,16 +16,20 @@ const Router = () => {
       <Navigation />
       <main className="main-container">
         <Switch>
-          <Route path={["/", "/home"]} exact component={Home} />
-          <Route path={["/search", "/search/:keyword"]} exact component={Search} />
-          <Route path="/movie/:id" component={MovieDetails} />
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
+          <Suspense fallback={<Loader />}>
+            <Route path={['/', '/home']} exact component={Home} />
+            <Route path={['/search', '/search/:keyword']} exact component={Search} />
+            <Route path="/movie/:id" component={MovieDetails} />
+            <Route path="/register" component={Register} />
+            <Route path="/login" component={Login} />
+          </Suspense>
         </Switch>
       </main>
-      <Footer />
+      <Suspense fallback={<Loader />}>
+        <Footer />
+      </Suspense>
     </BrowserRouter>
-  );
-};
+  )
+}
 
-export default Router;
+export default Router
