@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react'
 import { getUser } from '../services/users'
 import Loader from '../components/Loader'
 import api from '../utils/api-instance'
-import errorHandler from '../utils/errorHandler'
 
 const AuthContext = React.createContext(null)
 
@@ -83,7 +82,7 @@ const AuthProvider = ({ children }) => {
   const failureAction = (error) => {
     setLoading(false)
     setAuthUser(null)
-    setError(errorHandler(error))
+    setError(error)
     setLoggedIn(false)
   }
 
