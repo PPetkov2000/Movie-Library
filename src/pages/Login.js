@@ -64,7 +64,11 @@ const Login = ({ history }) => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        {error && <Message variant="error">{error}</Message>}
+        {error && (
+          <Message variant="error" data-testid="error-message">
+            {error}
+          </Message>
+        )}
         <form className={classes.form} noValidate onSubmit={submitHandler}>
           {LOGIN_FIELDS(formData).map((field, index) => (
             <TextField
