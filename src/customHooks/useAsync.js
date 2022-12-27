@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react'
-import errorHandler from '../utils/errorHandler'
 
 const useAsync = (func, dependencies = [], immediate = true) => {
   const [loading, setLoading] = useState(false)
@@ -15,10 +14,9 @@ const useAsync = (func, dependencies = [], immediate = true) => {
         return data
       })
       .catch((error) => {
-        const errorMessage = errorHandler(error)
-        setError(errorMessage)
+        setError(error)
         setData(undefined)
-        return Promise.reject(errorMessage)
+        return Promise.reject(error)
       })
       .finally(() => {
         setLoading(false)
@@ -33,5 +31,4 @@ const useAsync = (func, dependencies = [], immediate = true) => {
 
   return { loading, error, data, execute }
 }
-
 export default useAsync
