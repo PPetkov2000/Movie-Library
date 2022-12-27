@@ -62,7 +62,11 @@ const Register = ({ history }) => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        {error && <Message variant="error">{error}</Message>}
+        {error && (
+          <Message variant="error" data-testid="error-message">
+            {error}
+          </Message>
+        )}
         <form className={classes.form} noValidate onSubmit={submitHandler}>
           <Grid container spacing={2}>
             {REGISTER_FIELDS(formData).map((field, index) => (
