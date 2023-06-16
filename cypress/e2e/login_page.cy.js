@@ -3,11 +3,11 @@ describe('Login Page', () => {
     cy.visit('/login')
   })
 
-  it('Username is focused by default', () => {
+  it('Username should be focused by default', () => {
     cy.focused().should('have.attr', 'name', 'username')
   })
 
-  it('Fields are empty by default', () => {
+  it('Fields should be empty by default', () => {
     cy.get('input[name="username"]').should('have.value', '')
     cy.get('input[name="password"]').should('have.value', '')
   })
@@ -20,9 +20,8 @@ describe('Login Page', () => {
     cy.get('input[name="password"]').should('have.value', '123456')
 
     cy.findByRole('button', { name: /sign in/i }).click()
-
     cy.url().should('include', '/login')
-    cy.findByText(/invalid username or password/i).should('exist')
+    cy.get('[data-testid="error-message"]').should('be.visible')
   })
 
   it('Login successfully', () => {
@@ -33,7 +32,6 @@ describe('Login Page', () => {
     cy.get('input[name="password"]').should('have.value', '123456')
 
     cy.findByRole('button', { name: /sign in/i }).click()
-
     cy.url().should('not.include', '/login')
   })
 })
