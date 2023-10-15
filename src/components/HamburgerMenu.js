@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    padding: '2rem 1rem',
   },
 }))
 
