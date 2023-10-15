@@ -50,7 +50,14 @@ const Movie = ({ movie }) => {
   return (
     <div className={classes.movieWrapper}>
       <Link to={`/movie/${movie.id}`} aria-label="See movie details">
-        <img src={movie.image ? movie.image.medium : defaultImage} alt={movie.name} className={classes.movieImage} loading="lazy" />
+        <img
+          src={movie.image ? movie.image.medium : defaultImage}
+          alt={movie.name}
+          className={classes.movieImage}
+          loading="lazy"
+          width="210"
+          height="295"
+        />
       </Link>
       <div className={classes.movieInfo}>
         <Typography variant="h3">
