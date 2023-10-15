@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   searchButton: {
     color: 'green',
     borderColor: 'green',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
 }))
 
