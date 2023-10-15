@@ -24,9 +24,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1, 1, 1, 2),
     borderRadius: '0.2rem',
     marginRight: '0.5rem',
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '20rem',
+    width: '20rem',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
     },
     border: '1px solid lightgray',
   },
