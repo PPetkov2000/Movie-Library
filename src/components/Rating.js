@@ -7,11 +7,18 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
   ratingWrapper: {
     margin: '1rem 0',
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      alignItems: 'center',
+    },
   },
   ratingText: {
     fontSize: '2rem',
     fontWeight: 'bold',
     paddingLeft: '.7rem',
+    [theme.breakpoints.down('sm')]: {
+      marginRight: 'auto',
+    },
   },
   ratingIcon: {
     color: '#dada11',
