@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
   reviewWrapper: {
     width: '50%',
     margin: theme.spacing(2, 0, 2, 0),
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
   reviewTextField: {
     width: '100%',
